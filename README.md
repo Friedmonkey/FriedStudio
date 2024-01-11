@@ -19,7 +19,6 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-* [Contributing](#contributing)
 * [Authors](#authors)
 * [Acknowledgements](#acknowledgements)
 
@@ -79,12 +78,21 @@ I dont know
 
 [take a look at the images because idk how to show them here]
 
-DesignerGeneratedCode.cs.png
-DesignerGeneratedCode2.cs.png
-FriedStudioDesign.png
-FriedStudioForm.cs.png
-FriedStudioOutput.png
-ResizeAndOneToOneScaleOutput.png
+This is the designer where you can create a form
+![Screen Shot](/FriedStudioDesign.png)
+
+this is what the designer generated code looks like
+![Screen Shot](/DesignerGeneratedCode.cs.png)
+![Screen Shot](/DesignerGeneratedCode2.cs.png)
+
+this is `form.cs` the code behind it
+![Screen Shot](/FriedStudioForm.cs.png)
+
+when we compile this is what it outputs
+![Screen Shot](/FriedStudioOutput.png)
+
+its also resizable and as you can see the output is pretty much 1 to 1 scale from what you designed
+![Screen Shot](/ResizeAndOneToOneScaleOutput.png)
 
 
 ## Authors
