@@ -268,7 +268,7 @@ namespace $%NameSpace%$
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAHkAAAAUCAYAAACpkJLNAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAAAKxJREFUaEPt0UEKwzAMRFFvQnP/c/lOLgMNmNR1BRZhLM0HkQRv5LzSVPiEnCAh
+        vAAADrwBlbxySQAAAKxJREFUaEPt0UEKwzAMRFFvQnP/c/lOLgMNmNR1BRZhLM0HkQRv5LzSVPiEnCAh
         J0jICRJygkIhl1JMwxZ2qrV+vr7D2cre4ZD/xYgMxON1DqFnZ9aETNII0wMYCZmoHtULGAmZrAvXCxj9
         vDF+hmWYsuzDtvO9R5F3bHfkCxjP/n01IZM0QvWCFjJBM0wP6HDIlmELO80QcbaydyhkNU7ICRJygoSc
         ICGHr7U3sJ3VM8rEDkAAAAAASUVORK5CYII=
@@ -277,7 +277,7 @@ namespace $%NameSpace%$
   <data name="picbxVisibleIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABwAAAAbCAYAAABvCO8sAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
-        cgAAEnIBXmVb4wAAB3JJREFUSEt9lnlUVNcdx4e0NWuTE/dqEisuca3R2MbWJG5xF7QuscYaEFdAXCtu
+        cQAAEnEB89x6jgAAB3JJREFUSEt9lnlUVNcdx4e0NWuTE/dqEisuca3R2MbWJG5xF7QuscYaEFdAXCtu
         uGtEDDMsyr7LNiCbItsszKBxjUdjKYagiIggm4CoOTm2+fTeGR4MNqd/fM/Mu2/5vM/v3nt+TzVnjgNK
         Zs2cg4ODI7NnWY/bf2dbo1yj/FeinLfc23ZOGZOR9yjXquRDHR3+yvLlKzribBPb8V+Ii8vK/zm2HXN2
         cul03mLo4rKKs9k5RIXH/N9ER8RgMpo5l+3HuTMaiixRYz6txpRlTWGmGqOIIcMXfbovOpGCNF/yT/li
@@ -312,4 +312,7 @@ namespace $%NameSpace%$
         sxuRLJ3TSLwAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

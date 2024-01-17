@@ -57,13 +57,23 @@ namespace ScuffedScri
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.picbxVisibleIcon = new System.Windows.Forms.PictureBox();
             this.lblVisibleTitle = new System.Windows.Forms.Label();
+            this.reForm = new ScuffedScri.ResizableControl();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.dataProperties = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.bttnAddClick = new System.Windows.Forms.Button();
             this.bttnDlete = new System.Windows.Forms.Button();
             this.txtbxNameSpace = new System.Windows.Forms.TextBox();
-            this.reForm = new ScuffedScri.ResizableControl();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buildProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -81,11 +91,12 @@ namespace ScuffedScri
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataProperties)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // bttnCompile
             // 
-            this.bttnCompile.Location = new System.Drawing.Point(162, 8);
+            this.bttnCompile.Location = new System.Drawing.Point(162, 34);
             this.bttnCompile.Margin = new System.Windows.Forms.Padding(2);
             this.bttnCompile.Name = "bttnCompile";
             this.bttnCompile.Size = new System.Drawing.Size(60, 25);
@@ -96,7 +107,7 @@ namespace ScuffedScri
             // 
             // txtbxName
             // 
-            this.txtbxName.Location = new System.Drawing.Point(11, 11);
+            this.txtbxName.Location = new System.Drawing.Point(11, 37);
             this.txtbxName.Margin = new System.Windows.Forms.Padding(2);
             this.txtbxName.Name = "txtbxName";
             this.txtbxName.Size = new System.Drawing.Size(76, 20);
@@ -109,7 +120,7 @@ namespace ScuffedScri
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(107, 13);
+            this.checkBox1.Location = new System.Drawing.Point(107, 39);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(46, 17);
@@ -119,7 +130,7 @@ namespace ScuffedScri
             // 
             // bttnDarkMode
             // 
-            this.bttnDarkMode.Location = new System.Drawing.Point(388, 8);
+            this.bttnDarkMode.Location = new System.Drawing.Point(388, 34);
             this.bttnDarkMode.Margin = new System.Windows.Forms.Padding(2);
             this.bttnDarkMode.Name = "bttnDarkMode";
             this.bttnDarkMode.Size = new System.Drawing.Size(68, 25);
@@ -130,7 +141,7 @@ namespace ScuffedScri
             // 
             // bttnLightMode
             // 
-            this.bttnLightMode.Location = new System.Drawing.Point(315, 8);
+            this.bttnLightMode.Location = new System.Drawing.Point(315, 34);
             this.bttnLightMode.Margin = new System.Windows.Forms.Padding(2);
             this.bttnLightMode.Name = "bttnLightMode";
             this.bttnLightMode.Size = new System.Drawing.Size(69, 25);
@@ -147,7 +158,7 @@ namespace ScuffedScri
             "exe.exe",
             "winexe.exe",
             "library.dll"});
-            this.cmbxTarget.Location = new System.Drawing.Point(504, 12);
+            this.cmbxTarget.Location = new System.Drawing.Point(504, 38);
             this.cmbxTarget.Name = "cmbxTarget";
             this.cmbxTarget.Size = new System.Drawing.Size(66, 21);
             this.cmbxTarget.TabIndex = 8;
@@ -155,7 +166,7 @@ namespace ScuffedScri
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(461, 16);
+            this.label1.Location = new System.Drawing.Point(461, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 9;
@@ -173,11 +184,11 @@ namespace ScuffedScri
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 38);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 62);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(588, 326);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(588, 363);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
             // flowLayoutPanel1
@@ -190,7 +201,7 @@ namespace ScuffedScri
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(52, 320);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(52, 357);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // bttnButton
@@ -254,7 +265,7 @@ namespace ScuffedScri
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(405, 320);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(405, 357);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // tabctrlPages
@@ -267,7 +278,7 @@ namespace ScuffedScri
             this.tabctrlPages.Location = new System.Drawing.Point(3, 3);
             this.tabctrlPages.Name = "tabctrlPages";
             this.tabctrlPages.SelectedIndex = 0;
-            this.tabctrlPages.Size = new System.Drawing.Size(399, 282);
+            this.tabctrlPages.Size = new System.Drawing.Size(399, 315);
             this.tabctrlPages.TabIndex = 10;
             this.tabctrlPages.Click += new System.EventHandler(this.tabctrlPages_Click);
             // 
@@ -277,7 +288,7 @@ namespace ScuffedScri
             this.tabProgram.Location = new System.Drawing.Point(4, 22);
             this.tabProgram.Name = "tabProgram";
             this.tabProgram.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProgram.Size = new System.Drawing.Size(391, 256);
+            this.tabProgram.Size = new System.Drawing.Size(391, 289);
             this.tabProgram.TabIndex = 0;
             this.tabProgram.Text = "Program.cs";
             this.tabProgram.UseVisualStyleBackColor = true;
@@ -308,6 +319,7 @@ namespace ScuffedScri
             this.txtbxProgram.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtbxProgram.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtbxProgram.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtbxProgram.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtbxProgram.Hotkeys = resources.GetString("txtbxProgram.Hotkeys");
             this.txtbxProgram.IsReplaceMode = false;
             this.txtbxProgram.Language = FastColoredTextBoxNS.Language.CSharp;
@@ -320,10 +332,11 @@ namespace ScuffedScri
             this.txtbxProgram.RightBracket2 = '}';
             this.txtbxProgram.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtbxProgram.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtbxProgram.ServiceColors")));
-            this.txtbxProgram.Size = new System.Drawing.Size(385, 250);
+            this.txtbxProgram.Size = new System.Drawing.Size(385, 283);
             this.txtbxProgram.TabIndex = 5;
             this.txtbxProgram.Text = resources.GetString("txtbxProgram.Text");
             this.txtbxProgram.Zoom = 100;
+            this.txtbxProgram.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.txtbxProgram_TextChanged);
             // 
             // tabDesigner
             // 
@@ -331,7 +344,7 @@ namespace ScuffedScri
             this.tabDesigner.Location = new System.Drawing.Point(4, 22);
             this.tabDesigner.Name = "tabDesigner";
             this.tabDesigner.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDesigner.Size = new System.Drawing.Size(391, 256);
+            this.tabDesigner.Size = new System.Drawing.Size(391, 289);
             this.tabDesigner.TabIndex = 1;
             this.tabDesigner.Text = "Form [Designer]";
             this.tabDesigner.UseVisualStyleBackColor = true;
@@ -352,7 +365,7 @@ namespace ScuffedScri
         '\''};
             this.txtbxDesigner.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n^\\s*(case|default)\\s*[^:]" +
     "*(?<range>:)\\s*(?<range>[^;]+);\r\n";
-            this.txtbxDesigner.AutoScrollMinSize = new System.Drawing.Size(731, 612);
+            this.txtbxDesigner.AutoScrollMinSize = new System.Drawing.Size(698, 612);
             this.txtbxDesigner.BackBrush = null;
             this.txtbxDesigner.BackColor = System.Drawing.Color.Silver;
             this.txtbxDesigner.BookmarkColor = System.Drawing.Color.Teal;
@@ -362,6 +375,7 @@ namespace ScuffedScri
             this.txtbxDesigner.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtbxDesigner.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtbxDesigner.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtbxDesigner.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtbxDesigner.Hotkeys = resources.GetString("txtbxDesigner.Hotkeys");
             this.txtbxDesigner.IsReplaceMode = false;
             this.txtbxDesigner.Language = FastColoredTextBoxNS.Language.CSharp;
@@ -374,10 +388,11 @@ namespace ScuffedScri
             this.txtbxDesigner.RightBracket2 = '}';
             this.txtbxDesigner.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtbxDesigner.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtbxDesigner.ServiceColors")));
-            this.txtbxDesigner.Size = new System.Drawing.Size(385, 250);
+            this.txtbxDesigner.Size = new System.Drawing.Size(385, 283);
             this.txtbxDesigner.TabIndex = 6;
             this.txtbxDesigner.Text = resources.GetString("txtbxDesigner.Text");
             this.txtbxDesigner.Zoom = 100;
+            this.txtbxDesigner.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.txtbxDesigner_TextChanged);
             // 
             // tabForm
             // 
@@ -385,7 +400,7 @@ namespace ScuffedScri
             this.tabForm.Location = new System.Drawing.Point(4, 22);
             this.tabForm.Name = "tabForm";
             this.tabForm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabForm.Size = new System.Drawing.Size(391, 256);
+            this.tabForm.Size = new System.Drawing.Size(391, 289);
             this.tabForm.TabIndex = 2;
             this.tabForm.Text = "Form.cs";
             this.tabForm.UseVisualStyleBackColor = true;
@@ -406,7 +421,7 @@ namespace ScuffedScri
         '\''};
             this.txtbxUserCode.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n^\\s*(case|default)\\s*[^:]" +
     "*(?<range>:)\\s*(?<range>[^;]+);\r\n";
-            this.txtbxUserCode.AutoScrollMinSize = new System.Drawing.Size(331, 262);
+            this.txtbxUserCode.AutoScrollMinSize = new System.Drawing.Size(298, 262);
             this.txtbxUserCode.BackBrush = null;
             this.txtbxUserCode.BackColor = System.Drawing.Color.Silver;
             this.txtbxUserCode.BookmarkColor = System.Drawing.Color.Teal;
@@ -416,6 +431,7 @@ namespace ScuffedScri
             this.txtbxUserCode.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtbxUserCode.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtbxUserCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtbxUserCode.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtbxUserCode.Hotkeys = resources.GetString("txtbxUserCode.Hotkeys");
             this.txtbxUserCode.IsReplaceMode = false;
             this.txtbxUserCode.Language = FastColoredTextBoxNS.Language.CSharp;
@@ -428,10 +444,11 @@ namespace ScuffedScri
             this.txtbxUserCode.RightBracket2 = '}';
             this.txtbxUserCode.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtbxUserCode.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtbxUserCode.ServiceColors")));
-            this.txtbxUserCode.Size = new System.Drawing.Size(385, 250);
+            this.txtbxUserCode.Size = new System.Drawing.Size(385, 283);
             this.txtbxUserCode.TabIndex = 6;
             this.txtbxUserCode.Text = resources.GetString("txtbxUserCode.Text");
             this.txtbxUserCode.Zoom = 100;
+            this.txtbxUserCode.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.txtbxUserCode_TextChanged);
             // 
             // tabFormDesign
             // 
@@ -441,7 +458,7 @@ namespace ScuffedScri
             this.tabFormDesign.Location = new System.Drawing.Point(4, 22);
             this.tabFormDesign.Name = "tabFormDesign";
             this.tabFormDesign.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFormDesign.Size = new System.Drawing.Size(391, 256);
+            this.tabFormDesign.Size = new System.Drawing.Size(391, 289);
             this.tabFormDesign.TabIndex = 3;
             this.tabFormDesign.Text = "Form [Design]";
             this.tabFormDesign.Click += new System.EventHandler(this.tabFormDesign_Click);
@@ -493,6 +510,32 @@ namespace ScuffedScri
             this.lblVisibleTitle.TabIndex = 0;
             this.lblVisibleTitle.Text = "MyProject";
             // 
+            // reForm
+            // 
+            this.reForm.AllowAll = false;
+            this.reForm.AllowBottom = true;
+            this.reForm.AllowBottomLeft = false;
+            this.reForm.AllowBottomRight = true;
+            this.reForm.AllowLeft = false;
+            this.reForm.AllowMove = false;
+            this.reForm.AllowRight = true;
+            this.reForm.AllowTop = false;
+            this.reForm.AllowTopLeft = false;
+            this.reForm.AllowTopRight = false;
+            this.reForm.BackColor = System.Drawing.Color.Transparent;
+            this.reForm.ControlType = ScuffedScri.fakeControlType.Empty;
+            this.reForm.FakeEnabled = true;
+            this.reForm.Location = new System.Drawing.Point(7, 27);
+            this.reForm.Margin = new System.Windows.Forms.Padding(4);
+            this.reForm.MinimalHeight = 175;
+            this.reForm.MinimalWidth = 250;
+            this.reForm.Name = "reForm";
+            this.reForm.Padding = new System.Windows.Forms.Padding(10);
+            this.reForm.Size = new System.Drawing.Size(244, 155);
+            this.reForm.TabIndex = 2;
+            this.reForm.SizeChanged += new System.EventHandler(this.reForm_SizeChanged);
+            this.reForm.Click += new System.EventHandler(this.ClickControl);
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
@@ -505,7 +548,7 @@ namespace ScuffedScri
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(113, 320);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(113, 357);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // dataProperties
@@ -516,11 +559,11 @@ namespace ScuffedScri
             this.dataProperties.AllowUserToResizeRows = false;
             this.dataProperties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataProperties.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataProperties.Location = new System.Drawing.Point(3, 115);
+            this.dataProperties.Location = new System.Drawing.Point(3, 127);
             this.dataProperties.MultiSelect = false;
             this.dataProperties.Name = "dataProperties";
             this.dataProperties.RowHeadersVisible = false;
-            this.dataProperties.Size = new System.Drawing.Size(107, 202);
+            this.dataProperties.Size = new System.Drawing.Size(107, 227);
             this.dataProperties.TabIndex = 0;
             this.dataProperties.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataProperties_CellEndEdit);
             // 
@@ -538,15 +581,15 @@ namespace ScuffedScri
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(107, 106);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(107, 118);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // bttnAddClick
             // 
             this.bttnAddClick.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bttnAddClick.Location = new System.Drawing.Point(3, 38);
+            this.bttnAddClick.Location = new System.Drawing.Point(3, 42);
             this.bttnAddClick.Name = "bttnAddClick";
-            this.bttnAddClick.Size = new System.Drawing.Size(101, 29);
+            this.bttnAddClick.Size = new System.Drawing.Size(101, 33);
             this.bttnAddClick.TabIndex = 2;
             this.bttnAddClick.Text = "Add Click";
             this.bttnAddClick.UseVisualStyleBackColor = true;
@@ -557,7 +600,7 @@ namespace ScuffedScri
             this.bttnDlete.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bttnDlete.Location = new System.Drawing.Point(3, 3);
             this.bttnDlete.Name = "bttnDlete";
-            this.bttnDlete.Size = new System.Drawing.Size(101, 29);
+            this.bttnDlete.Size = new System.Drawing.Size(101, 33);
             this.bttnDlete.TabIndex = 1;
             this.bttnDlete.Text = "Delete Control";
             this.bttnDlete.UseVisualStyleBackColor = true;
@@ -565,45 +608,106 @@ namespace ScuffedScri
             // 
             // txtbxNameSpace
             // 
-            this.txtbxNameSpace.Location = new System.Drawing.Point(229, 11);
+            this.txtbxNameSpace.Location = new System.Drawing.Point(229, 37);
             this.txtbxNameSpace.Margin = new System.Windows.Forms.Padding(2);
             this.txtbxNameSpace.Name = "txtbxNameSpace";
             this.txtbxNameSpace.Size = new System.Drawing.Size(76, 20);
             this.txtbxNameSpace.TabIndex = 13;
             this.txtbxNameSpace.Text = "NameSpacer";
             // 
-            // reForm
+            // menuStrip1
             // 
-            this.reForm.AllowAll = false;
-            this.reForm.AllowBottom = true;
-            this.reForm.AllowBottomLeft = false;
-            this.reForm.AllowBottomRight = true;
-            this.reForm.AllowLeft = false;
-            this.reForm.AllowMove = false;
-            this.reForm.AllowRight = true;
-            this.reForm.AllowTop = false;
-            this.reForm.AllowTopLeft = false;
-            this.reForm.AllowTopRight = false;
-            this.reForm.BackColor = System.Drawing.Color.Transparent;
-            this.reForm.ControlType = ScuffedScri.ResizableControl.fakeControlType.Empty;
-            this.reForm.FakeEnabled = true;
-            this.reForm.Location = new System.Drawing.Point(7, 27);
-            this.reForm.Margin = new System.Windows.Forms.Padding(4);
-            this.reForm.MinimalHeight = 175;
-            this.reForm.MinimalWidth = 250;
-            this.reForm.Name = "reForm";
-            this.reForm.Padding = new System.Windows.Forms.Padding(10);
-            this.reForm.Size = new System.Drawing.Size(244, 155);
-            this.reForm.TabIndex = 2;
-            this.reForm.SizeChanged += new System.EventHandler(this.reForm_SizeChanged);
-            this.reForm.Click += new System.EventHandler(this.ClickControl);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.buildToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(600, 24);
+            this.menuStrip1.TabIndex = 14;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // buildToolStripMenuItem
+            // 
+            this.buildToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buildProjectToolStripMenuItem,
+            this.runProjectToolStripMenuItem});
+            this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
+            this.buildToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.buildToolStripMenuItem.Text = "Build";
+            // 
+            // buildProjectToolStripMenuItem
+            // 
+            this.buildProjectToolStripMenuItem.Name = "buildProjectToolStripMenuItem";
+            this.buildProjectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.buildProjectToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.buildProjectToolStripMenuItem.Text = "Build project";
+            this.buildProjectToolStripMenuItem.Click += new System.EventHandler(this.buildProjectToolStripMenuItem_Click);
+            // 
+            // runProjectToolStripMenuItem
+            // 
+            this.runProjectToolStripMenuItem.Name = "runProjectToolStripMenuItem";
+            this.runProjectToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.runProjectToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.runProjectToolStripMenuItem.Text = "Run project";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(600, 427);
             this.Controls.Add(this.txtbxNameSpace);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label1);
@@ -613,6 +717,8 @@ namespace ScuffedScri
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.txtbxName);
             this.Controls.Add(this.bttnCompile);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "FriedStudio";
@@ -636,6 +742,8 @@ namespace ScuffedScri
             this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataProperties)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -677,6 +785,16 @@ namespace ScuffedScri
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Button bttnAddClick;
         private System.Windows.Forms.TextBox txtbxTextbox;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buildToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buildProjectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runProjectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
     }
 }
 

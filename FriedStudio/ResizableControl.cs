@@ -57,15 +57,6 @@ namespace ScuffedScri
             set { minimalHeight = value; }
         }
 
-        public enum fakeControlType
-        {
-            Empty,
-            Label,
-            Button,
-            Checkbox,
-            Textbox
-        }
-
         private fakeControlType type = fakeControlType.Empty;
 
         public fakeControlType ControlType
@@ -213,7 +204,12 @@ namespace ScuffedScri
             panel1.Controls.Remove(control);
             controls.Remove(control);
             //control.Dispose();
-
+        }
+        public void ClearControls()
+        {
+            panel1.Controls.Clear();
+            controls.Clear();
+            //control.Dispose();
         }
 
         public Control getPanel()
@@ -280,9 +276,7 @@ namespace ScuffedScri
 
 
 
-
-
-        private void ResizableControl_Load(object sender, EventArgs e)
+        public void ForceLoad() 
         {
             switch (type)
             {
@@ -417,6 +411,11 @@ namespace ScuffedScri
                 default:
                     break;
             }
+        }
+
+        private void ResizableControl_Load(object sender, EventArgs e)
+        {
+            ForceLoad();
         }
         private void ResizableControl_Paint(object sender, PaintEventArgs e)
         {
@@ -835,7 +834,7 @@ namespace ScuffedScri
             //    cont.Update();
             //}
         }
-        public void setControlProps(controlProps props, fakeControlType type) 
+        public void setControlProps(controlProps props) 
         {
             changeControl("Name",props.Name);
             changeControl("Text",props.Text);
@@ -846,7 +845,7 @@ namespace ScuffedScri
             changeControl("Size",props.Size,true);
             changeControl("Location",props.Location,true);
 
-            switch (type)
+            switch (props.ControlType)
             {
                 case fakeControlType.Empty:
                     break;
@@ -888,6 +887,7 @@ namespace ScuffedScri
             props.Enabled = cont.Enabled;
             props.BackColor = cont.BackColor;
             props.ForeColor = cont.ForeColor;
+            props.ControlType = type;
 
             props.Size = this.Size;
             props.Location = this.Location;

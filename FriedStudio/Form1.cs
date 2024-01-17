@@ -19,6 +19,9 @@ using System.Windows.Media;
 using System.Data;
 using static ScuffedScri.Form1;
 using static ScuffedScri.ResizableControl;
+using System.Runtime.Remoting.Messaging;
+using Newtonsoft.Json;
+
 
 //using System.IO;
 //using Microsoft.VisualStudio.Text.Editor;
@@ -28,6 +31,7 @@ namespace ScuffedScri
 {
     public partial class Form1 : Form
     {
+        string DefaultProjectJson = "{\"Name\":\"MyProject\",\"NameSpace\":\"NameSpacer\",\"Target\":\"winexe.exe\",\"ProgramCs\":\"using System;\\r\\nusing System.Windows.Forms;\\r\\n//entery point\\r\\nnamespace $%NameSpace%$\\r\\n{\\r\\n    public class $%NameSpace%$\\r\\n    {\\r\\n        [STAThread]\\r\\n        public static void Main(string[] args)\\r\\n        {\\r\\n            //Form Form1 = new Form();\\r\\n            Application.EnableVisualStyles();\\r\\n            Application.SetCompatibleTextRenderingDefault(false);\\r\\n            Application.Run(new Form1());\\r\\n        }\\r\\n    }\\r\\n}\",\"FormCs\":\"//include System;\\r\\n//include System.Windows.Forms;\\r\\n//include System.Drawing;\\r\\n\\r\\nusing System;\\r\\nusing System.Windows.Forms;\\r\\n//User controlled Code\\r\\nnamespace $%NameSpace%$\\r\\n{\\r\\n    public partial class Form1 : Form\\r\\n    {\\r\\n        public Form1()\\r\\n        {\\r\\n            InitializeComponent();\\r\\n        }\\r\\n        //$%FunctionInsert%$\\r\\n    }\\r\\n}\",\"FormSize\":\"244, 155\",\"Controls\":[]}";
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +40,35 @@ namespace ScuffedScri
         }
 
         ResizableControl ClickedControl;
+        string savedFile;
+        string SavedFile
+        {
+            get
+            {
+                return savedFile;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    this.Text = "FriedStudio";
+                else
+                    this.Text = "FriedStudio - " + value;
+                savedFile = value;
+            }
+        }
+        string DesignerHash = "";
+        bool saved = true;
+        bool Saved
+        { 
+            get 
+            {
+                return saved; 
+            }
+            set 
+            { 
+                saved = value; 
+            }
+        }
 
         private void bttnCompile_Click(object sender, EventArgs e)
         {
@@ -49,7 +82,7 @@ namespace ScuffedScri
             return input.Replace("$%ProjectName%$", txtbxName.Text).Replace("$%NameSpace%$", txtbxNameSpace.Text);
         }
 
-        private void Compile() 
+        private void Compile(bool? overrideRun = null) 
         {
             //string[] sources = new string[] 
             //{
@@ -104,6 +137,7 @@ namespace ScuffedScri
 
             //cp.CompilerOptions = "/t:library";
             cp.CompilerOptions = "/target:"+cmbxTarget.Text.Split('.')[0];
+
 
             cp.GenerateInMemory = true;
             cp.GenerateExecutable = true;
@@ -165,8 +199,82 @@ namespace ScuffedScri
                 PSI.WorkingDirectory = Application.StartupPath;
                 System.Diagnostics.Process.Start(PSI);
             }
+
         }
 
+
+        private void SaveProject() 
+        {
+            List<controlProps> controls = new List<controlProps>();
+            foreach (ResizableControl cont in reForm.controls)
+            {
+                controls.Add(cont.getControlProps());
+                //controls.Add(new controlProps() 
+                //{
+                //    Name = control.Name,
+                //    Text = control.Text,
+                //    Enabled = control.Enabled,
+                //    BackColor = control.BackColor,
+                //    ForeColor = control.ForeColor,
+                //    Size = control.Size,
+                //    Location = control.Location,
+                //});
+            }
+
+            Project project = new Project()
+            {
+                Name = txtbxName.Text,
+                NameSpace = txtbxNameSpace.Text,
+                FormCs = txtbxUserCode.Text,
+                ProgramCs = txtbxProgram.Text,
+                Target = cmbxTarget.SelectedItem.ToString(),
+                FormSize = reForm.Size,
+                Controls = controls,
+            };
+            string json = JsonConvert.SerializeObject(project);
+            File.WriteAllText(SavedFile,json);
+            DesignerHash = txtbxDesigner.Text.Hash();
+            Saved = true;
+            MessageBox.Show("Project saved!");
+        }
+        private void LoadProject(string overrideJson = "")
+        {
+            string json = string.Empty;
+
+            if (string.IsNullOrEmpty(overrideJson))
+                json = File.ReadAllText(SavedFile);
+            else
+                json = overrideJson;
+
+            var project = JsonConvert.DeserializeObject<Project>(json);
+            txtbxName.Text = project.Name;
+            txtbxNameSpace.Text = project.NameSpace;
+            txtbxUserCode.Text = project.FormCs;
+            txtbxProgram.Text = project.ProgramCs;
+            cmbxTarget.SelectedItem = project.Target;
+            reForm.ClearControls();
+            reForm.Size = project.FormSize;
+
+            foreach (controlProps props in project.Controls)
+            {
+                ResizableControl cont = new ResizableControl();
+                cont.ControlType = props.ControlType;
+                cont.ForceLoad();
+                cont.Click += ClickControl;
+
+                unSelectAllControls();
+                reForm.addPanelControl(cont);
+
+                cont.getPanel().Click += ClickControl;
+                cont.getControl().Click += ClickControl;
+
+                cont.setControlProps(props);
+                reForm.SendToBack();
+            }
+            UpdateDesigner();
+            DesignerHash = txtbxDesigner.Text.Hash();
+            Saved = true;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             reForm_SizeChanged(sender,e);
@@ -174,6 +282,9 @@ namespace ScuffedScri
             //reForm.Click += ClickControl;
             reForm.getPanel().Click += ClickControl;
             //reForm.getControl().Click += ClickControl;
+            UpdateDesigner();
+            DesignerHash = txtbxDesigner.Text.Hash();
+            Saved = true;
         }
 
         private void bttnDarkMode_Click(object sender, EventArgs e)
@@ -252,7 +363,8 @@ namespace ScuffedScri
 
         private void UpdateDesigner() 
         {
-            txtbxDesigner.Text =
+            string text = string.Empty;
+            text =
 @"
 //compiler code
 namespace $%NameSpace%$
@@ -277,10 +389,10 @@ namespace $%NameSpace%$
             foreach (ResizableControl cont in reForm.controls)
             {
                 Control control = cont.getControl();
-                txtbxDesigner.Text += $"this.{control.Name} = new {control.GetType().FullName}();";
-                txtbxDesigner.Text += "\n            ";
+                text += $"this.{control.Name} = new {control.GetType().FullName}();";
+                text += "\n            ";
             }
-            txtbxDesigner.Text += @"
+            text += @"
             //suspend Layouts
             this.SuspendLayout();
             ";
@@ -288,20 +400,20 @@ namespace $%NameSpace%$
             foreach (ResizableControl cont in reForm.controls)
             {
                 Control control = cont.getControl();
-                txtbxDesigner.Text += $"this.{control.Name}.Location = new System.Drawing.Point({cont.Location.X+cont.Padding.Left},{cont.Location.Y+cont.Padding.Top});";
-                txtbxDesigner.Text += "\n            ";
-                txtbxDesigner.Text += $"this.{control.Name}.Name = \"{control.Name}\";";
-                txtbxDesigner.Text += "\n            ";
-                txtbxDesigner.Text += $"this.{control.Name}.Size = new System.Drawing.Size({cont.Size.Width-(cont.Padding.Left*2)},{cont.Size.Height-(cont.Padding.Top*2)});";
-                txtbxDesigner.Text += "\n            ";
-                txtbxDesigner.Text += $"this.{control.Name}.Text = \"{control.Text}\";";
-                txtbxDesigner.Text += "\n            ";
-                txtbxDesigner.Text += $"this.{control.Name}.Enabled = {control.Enabled.ToString().ToLower()};";
-                txtbxDesigner.Text += "\n            ";
-                txtbxDesigner.Text += $"this.{control.Name}.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)({control.BackColor.R})))), ((int)(((byte)({control.BackColor.G})))), ((int)(((byte)({control.BackColor.B})))));";
-                txtbxDesigner.Text += "\n            ";
-                txtbxDesigner.Text += $"this.{control.Name}.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)({control.ForeColor.R})))), ((int)(((byte)({control.ForeColor.G})))), ((int)(((byte)({control.ForeColor.B})))));";
-                txtbxDesigner.Text += "\n            ";
+                text += $"this.{control.Name}.Location = new System.Drawing.Point({cont.Location.X+cont.Padding.Left},{cont.Location.Y+cont.Padding.Top});";
+                text += "\n            ";
+                text += $"this.{control.Name}.Name = \"{control.Name}\";";
+                text += "\n            ";
+                text += $"this.{control.Name}.Size = new System.Drawing.Size({cont.Size.Width-(cont.Padding.Left*2)},{cont.Size.Height-(cont.Padding.Top*2)});";
+                text += "\n            ";
+                text += $"this.{control.Name}.Text = \"{control.Text}\";";
+                text += "\n            ";
+                text += $"this.{control.Name}.Enabled = {control.Enabled.ToString().ToLower()};";
+                text += "\n            ";
+                text += $"this.{control.Name}.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)({control.BackColor.R})))), ((int)(((byte)({control.BackColor.G})))), ((int)(((byte)({control.BackColor.B})))));";
+                text += "\n            ";
+                text += $"this.{control.Name}.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)({control.ForeColor.R})))), ((int)(((byte)({control.ForeColor.G})))), ((int)(((byte)({control.ForeColor.B})))));";
+                text += "\n            ";
                 switch (cont.ControlType)
                 {
                     case fakeControlType.Empty:
@@ -313,8 +425,8 @@ namespace $%NameSpace%$
                     case fakeControlType.Checkbox:
                         break;
                     case fakeControlType.Textbox:
-                        txtbxDesigner.Text += $"this.{control.Name}.Multiline = {(control as TextBox).Multiline.ToString().ToLower()};";
-                        txtbxDesigner.Text += "\n            ";
+                        text += $"this.{control.Name}.Multiline = {(control as TextBox).Multiline.ToString().ToLower()};";
+                        text += "\n            ";
                         break;
                     default:
                         break;
@@ -333,21 +445,21 @@ namespace $%NameSpace%$
                     string eventName = Event.Split('$')[0];
                     string eventFunction = Event.Split('$')[1];
 
-                    txtbxDesigner.Text += $"this.{control.Name}.{eventName} += new System.EventHandler(this.{eventFunction});";
-                    txtbxDesigner.Text += "\n            ";
+                    text += $"this.{control.Name}.{eventName} += new System.EventHandler(this.{eventFunction});";
+                    text += "\n            ";
                 }
             }
-           txtbxDesigner.Text += @"
+           text += @"
 
             //add controls
             ";
             foreach (ResizableControl cont in reForm.controls)
             {
                 Control control = cont.getControl();
-                txtbxDesigner.Text += $"this.Controls.Add({control.Name});";
-                txtbxDesigner.Text += "\n            ";
+                text += $"this.Controls.Add({control.Name});";
+                text += "\n            ";
             }
-            txtbxDesigner.Text += @"
+            text += @"
             this.Text = ""$%ProjectName%$"";
             "
             +
@@ -362,13 +474,14 @@ namespace $%NameSpace%$
             foreach (ResizableControl cont in reForm.controls)
             {
                 Control control = cont.getControl();
-                txtbxDesigner.Text += $"private {control.GetType().FullName} {control.Name};";
-                txtbxDesigner.Text += "\n        ";
+                text += $"private {control.GetType().FullName} {control.Name};";
+                text += "\n        ";
             }
-            txtbxDesigner.Text += @"
+            text += @"
     }
 }
 ";
+            txtbxDesigner.Text = text;
         }
 
         private void tabctrlPages_Click(object sender, EventArgs e)
@@ -398,7 +511,7 @@ namespace $%NameSpace%$
                     labels++;
             }
             ResizableControl label = new ResizableControl();
-            label.ControlType = ResizableControl.fakeControlType.Label;
+            label.ControlType = fakeControlType.Label;
             label.Click += ClickControl;
 
             unSelectAllControls();
@@ -423,7 +536,7 @@ namespace $%NameSpace%$
                     buttons++;
             }
             ResizableControl button = new ResizableControl();
-            button.ControlType = ResizableControl.fakeControlType.Button;
+            button.ControlType = fakeControlType.Button;
             button.Click += ClickControl;
 
             unSelectAllControls();
@@ -447,7 +560,7 @@ namespace $%NameSpace%$
                     checkboxes++;
             }
             ResizableControl checkbox = new ResizableControl();
-            checkbox.ControlType = ResizableControl.fakeControlType.Checkbox;
+            checkbox.ControlType = fakeControlType.Checkbox;
             checkbox.Click += ClickControl;
 
             unSelectAllControls();
@@ -471,7 +584,7 @@ namespace $%NameSpace%$
                     textboxes++;
             }
             ResizableControl textbox = new ResizableControl();
-            textbox.ControlType = ResizableControl.fakeControlType.Textbox;
+            textbox.ControlType = fakeControlType.Textbox;
             textbox.Click += ClickControl;
 
             unSelectAllControls();
@@ -541,32 +654,12 @@ namespace $%NameSpace%$
             }
         }
 
-
-        public class controlProps
-        {
-            public string Name { get; set; }
-            public string Text { get; set; }
-            public bool Enabled { get; set; }
-            public Color BackColor { get; set; }
-            public Color ForeColor { get; set; }
-            public Size Size { get; set; }
-            public Point Location { get; set; }
-
-            //Textbox
-            public bool Multiline { get; set; }
-
-            //CheckBox
-            public bool Checked { get; set; }
-
-
-
-        }
-
         private void dataProperties_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             DataTable dt = (DataTable)dataProperties.DataSource;
             controlProps props = dt.ToClass();
-            ClickedControl.setControlProps(props,ClickedControl.ControlType);
+            props.ControlType = ClickedControl.ControlType;
+            ClickedControl.setControlProps(props);
         }
 
         private void bttnAddClick_Click(object sender, EventArgs e)
@@ -631,6 +724,127 @@ namespace $%NameSpace%$
                 {
                     reForm.DeleteControl(ClickedControl);
                     ClickedControl = null;
+                }
+            }
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "(*.fsp)|*.fsp";
+            sfd.ShowDialog();
+            if (File.Exists(sfd.FileName))
+            {
+                var result = MessageBox.Show($"File:{sfd.FileName} already exists, do you want to overwrite it?!", "Overwrite file?", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes)
+                {
+                    MessageBox.Show("File WASNT saved!");
+                    return;
+                }
+            }
+            SavedFile = sfd.FileName;
+            File.WriteAllText(SavedFile, "Loading project..");
+            SaveProject();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(SavedFile))
+            {
+                saveAsToolStripMenuItem_Click(sender,e);
+                return;
+            }
+            SaveProject();
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Saved)
+            {
+                openProj();
+            }
+            else
+            {
+                var result = MessageBox.Show("Project isnt saved! if you open a new project youll lose all progress here!, Do you want to save your progress?","Save Now?",MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    saveToolStripMenuItem_Click(sender,e);
+                }
+                else if (result == DialogResult.No)
+                {
+                    var result2 = MessageBox.Show("Do you want to Loose all your progress and open the new one then?","Loose progress and open other project?",MessageBoxButtons.YesNo);
+                    if (result2 == DialogResult.Yes)
+                    {
+                        openProj();
+                    }
+                }
+            }
+        }
+
+        private void openProj() 
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "(*.fsp)|*.fsp";
+            ofd.Multiselect = false;
+            ofd.ShowDialog();
+            if (!File.Exists(ofd.FileName))
+            {
+                MessageBox.Show($"File:{ofd.FileName} does not exist!");
+                return;
+            }
+            SavedFile = ofd.FileName;
+            LoadProject();
+        }
+
+        private void buildProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateDesigner();
+            Compile();
+        }
+
+        #region text change
+        private void txtbxProgram_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+            Saved = false;
+        }
+
+        private void txtbxUserCode_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+            Saved = false;
+        }
+        #endregion
+
+        private void txtbxDesigner_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+            var hash = txtbxDesigner.Text.Hash();
+            if (hash != DesignerHash)
+            {
+                Saved = false;
+            }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Saved)
+            {
+                SavedFile = string.Empty;
+                LoadProject(DefaultProjectJson);
+            }
+            else
+            {
+                var result = MessageBox.Show("Project isnt saved! if you open a new project youll lose all progress here!, Do you want to save your progress?", "Save Now?", MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    saveToolStripMenuItem_Click(sender, e);
+                }
+                else if (result == DialogResult.No)
+                {
+                    var result2 = MessageBox.Show("Do you want to Loose all your progress and open the new one then?", "Loose progress and open other project?", MessageBoxButtons.YesNo);
+                    if (result2 == DialogResult.Yes)
+                    {
+                        SavedFile = string.Empty;
+                        LoadProject(DefaultProjectJson);
+                    }
                 }
             }
         }
@@ -733,11 +947,11 @@ namespace $%NameSpace%$
                     {
                         string colorString = value.ToString();
                         string[] parts = colorString.Split(',');
-                        int red = int.Parse(parts[0].Replace("(",""));
+                        int red = int.Parse(parts[0].Replace("(", ""));
                         int green = int.Parse(parts[1]);
                         int blue = int.Parse(parts[2].Replace(")", ""));
                         Color color = Color.FromArgb(red, green, blue);
-                        property.SetValue(props,color);
+                        property.SetValue(props, color);
                         //value = color;
                     }
                     else if (propertyName == "Size")
@@ -756,6 +970,10 @@ namespace $%NameSpace%$
                         var newLoc = new Point(x, y);
                         property.SetValue(props, newLoc);
                     }
+                    else if (propertyName == "ControlType")
+                    { 
+                        //dont include that shit
+                    }
                     else
                     {
                         try
@@ -770,7 +988,28 @@ namespace $%NameSpace%$
             }
             return props;
         }
+        public static string Hash(this string text, string salt = "")
+        {
+            if (String.IsNullOrEmpty(text))
+            {
+                return String.Empty;
+            }
 
+            // Uses SHA256 to create the hash
+            using (var sha = new System.Security.Cryptography.SHA256Managed())
+            {
+                // Convert the string to a byte array first, to be processed
+                byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(text + salt);
+                byte[] hashBytes = sha.ComputeHash(textBytes);
+
+                // Convert back to a string, removing the '-' that BitConverter adds
+                string hash = BitConverter
+                    .ToString(hashBytes)
+                    .Replace("-", String.Empty);
+
+                return hash;
+            }
+        }
 
 
         public static Color ToColor(this string input)
