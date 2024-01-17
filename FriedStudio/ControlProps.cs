@@ -28,5 +28,6 @@ namespace ScuffedScri
         public bool Checked { get; set; }
 
         public fakeControlType ControlType { get; set; }
+        public string Tag { get; set; }
     }
 }

@@ -237,6 +237,7 @@ namespace ScuffedScri
             Saved = true;
             MessageBox.Show("Project saved!");
         }
+
         private void LoadProject(string overrideJson = "")
         {
             string json = string.Empty;
@@ -247,6 +248,15 @@ namespace ScuffedScri
                 json = overrideJson;
 
             var project = JsonConvert.DeserializeObject<Project>(json);
+
+            //project doest always load correctly
+            LoadProj(project);
+            //Task.Delay(1500).Wait();
+            //LoadProj(project);
+        }
+
+        private void LoadProj(Project project)
+        {
             txtbxName.Text = project.Name;
             txtbxNameSpace.Text = project.NameSpace;
             txtbxUserCode.Text = project.FormCs;
@@ -275,6 +285,7 @@ namespace ScuffedScri
             DesignerHash = txtbxDesigner.Text.Hash();
             Saved = true;
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             reForm_SizeChanged(sender,e);

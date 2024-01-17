@@ -838,6 +838,7 @@ namespace ScuffedScri
         {
             changeControl("Name",props.Name);
             changeControl("Text",props.Text);
+            changeControl("Tag",props.Tag);
             changeControl("Enabled",props.Enabled);
             changeControl("BackColor",props.BackColor);
             changeControl("ForeColor",props.ForeColor);
@@ -884,6 +885,7 @@ namespace ScuffedScri
 
             props.Name = cont.Name;
             props.Text = cont.Text;
+            props.Tag = cont.Tag.ToString();
             props.Enabled = cont.Enabled;
             props.BackColor = cont.BackColor;
             props.ForeColor = cont.ForeColor;
