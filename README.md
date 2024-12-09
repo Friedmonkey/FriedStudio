@@ -49,7 +49,7 @@ Pros:
 * idek if visual studio is open source but this one is
 
 Cons:
-* Verry buggy (you have to reselect controls when you want to change a property or itll revert the older properties)
+* Very buggy (you have to reselect controls when you want to change a property or itll revert the older properties)
 * Scuffed (The way i've implemented certain features is unspeakable like the way namespaces work or how/where onclick events gets insertec)
 * Designer generated cs file CANT be changed
 * litterly no way to save a project you just have to keep it open
